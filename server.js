@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
   console.log("server is running");
-  res.send("hello")
+  res.send("welcome to the hotel");
 })
 
 
