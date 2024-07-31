@@ -1,19 +1,29 @@
 const express = require('express')
-const app = express();
-// const mongoose = require('mongoose');
-const db = require('./db');
+const app = express()
+const db = require('./db')
+const passport = require('./auth') 
+const Person  = require('./models/Person')
 
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
-require('dotenv').config();
-const PORT = process.env.PORT || 3000;
+require('dotenv').config()
+const PORT = process.env.PORT || 3000
 
-// const MenuItem = require('./models/menu');
+app.use(passport.initialize());
+
+//Middleware Funtion
+const logRequest = (req, res, next) => {
+  console.log(`${new Date().toLocaleString()}Request made to:${req.originalUrl}`);
+  next();
+}
+app.use(logRequest)
 
 
-app.get('/', (req, res) => {
-  console.log("server is running");
+const localAuthMiddleware = passport.authenticate('local', { session: false })
+
+app.get('/login',localAuthMiddleware, (req, res) => {
+  console.log("Authentication successfull");
   res.send("welcome to the hotel");
 })
 
@@ -23,8 +33,8 @@ const personRoutes = require('./routes/personRoutes')
 const manuItemsRoutes = require('./routes/menuItemRoutes')
 
 //use the router
-app.use('/person', personRoutes)
-app.use('/menu', manuItemsRoutes)   
+app.use('/person',localAuthMiddleware, personRoutes)
+app.use('/menu', manuItemsRoutes)
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
