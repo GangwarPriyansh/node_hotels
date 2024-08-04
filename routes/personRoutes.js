@@ -6,7 +6,6 @@ const Person = require('./../models/Person');
 router.post('/', async (req, res) => {
     try {
         const data = req.body;
-        console.log(data);
         const response = await Person.create(data);
         console.log("data saved successfully");
         res.status(200).json(response);
@@ -21,7 +20,6 @@ router.get('/', async (req, res) => {
     try {
         const data = await Person.find()
         console.log("data fatched");
-        console.log(data);
         res.status(200).json(data);
     } catch (err) {
         console.log("error");
