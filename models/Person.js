@@ -46,7 +46,7 @@ const personSchema = new mongoose.Schema({
 personSchema.pre('save', async function (next) {
     const person = this
     //hash the password only as if it has been modified (or is new)
-    if (!person.isModified('password')) return next();
+    if (!person.isModified('password')) return next()
     try {
         //hash password genneration
         const salt = await bcrypt.genSalt(10)
