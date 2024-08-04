@@ -5,9 +5,8 @@ const MenuItem = require('./../models/menu');
 router.post('/', async (req, res) => {
     try {
         const data = req.body
-        console.log(data)
         const response = await MenuItem.create(data)
-        console.log("data saved successfully");
+        console.log("data saved successfully")
         res.status(200).json(response);
     }
     catch (err) {
@@ -18,10 +17,9 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const data = await MenuItem.find();
-        console.log("data fatched");
-        console.log(data)
-        res.status(200).json(data);
+        const data = await MenuItem.find()
+        console.log("data fatched")
+        res.status(200).json(data)
 
     } catch (err) {
         console.log(err);
