@@ -23,8 +23,8 @@ app.use(logRequest)
 const localAuthMiddleware = passport.authenticate('local', { session: false })
 
 app.get('/login',localAuthMiddleware, (req, res) => {
-  console.log("Authentication successfull");
-  res.send("welcome to the hotel");
+  console.log("Authentication successfull")
+  res.send("welcome to the hotel")
 })
 
 
